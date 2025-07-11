@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des noms</title>
+</head>
+<body>
+    <h2>Liste des participants :</h2>
+    <ul>
+        <li th:each="nom : ${listeNoms}" th:text="${nom}">Nom</li>
+    </ul>
+
+    <a th:href="@{/welcome}">Retour à l'accueil</a>
+</body>
+</html>
