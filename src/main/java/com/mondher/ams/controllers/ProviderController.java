@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 //@RestController
 @Controller
+@RequestMapping("/provider")
 public class ProviderController {
 	
 	

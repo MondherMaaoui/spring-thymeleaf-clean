@@ -1,9 +1,9 @@
 <h1 align="center">Bienvenue dans la formation de Mr Mondher</h1>
 <h3>Formation FullStack: Spring Boot Angular</h3>
 <h1 th:text="'Bienvenue ' + ${nomFormateur} + ' Formateur !'"></h1>
-<a th:href="@{/details}">Aller aux détails</a>
-<form th:action="@{/details}" method="get">
+<a th:href="@{/provider/details}">Aller aux détails</a>
+<form th:action="@{/provider/details}" method="get">
     <button type="submit">Voir les détails</button>
 </form>
 <br>
-<a th:href="@{/noms}">Liste des noms</a>
+<a th:href="@{/provider/noms}">Liste des noms</a>
