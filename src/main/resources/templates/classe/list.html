@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Liste des Classes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="container mt-4">
+
+    <h1>Liste des Classes</h1>
+
+    <a th:href="@{/classe/add}" class="btn btn-success mb-3">Ajouter une Classe</a>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Libellé</th>
+                <th>Nombre d'élèves</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="classe : ${listeClasses}">
+                <td th:text="${classe.classeCode}">101</td>
+                <td th:text="${classe.classeLib}">Classe A</td>
+                <td th:text="${classe.classeNbrEleves}">30</td>
+                <td>
+                    <a th:href="@{'/classe/edit/' + ${classe.classeCode}}" class="btn btn-primary btn-sm">Modifier</a>
+                    <a th:href="@{'/classe/delete/' + ${classe.classeCode}}" class="btn btn-danger btn-sm" 
+                       onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-secondary">Accueil</a>
+
+</body>
+</html>

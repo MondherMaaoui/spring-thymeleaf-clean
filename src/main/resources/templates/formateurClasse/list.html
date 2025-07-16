@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des FormateurClasse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container mt-3">
+    <h2>Liste des liens Formateur-Classe</h2>
+
+    <a href="#" th:href="@{/formateurClasse/add}" class="btn btn-success mb-3">Ajouter un lien</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Formateur</th>
+                <th>Classe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fc : ${formateurClasses}">
+            <td th:text="${fc.formateur.formaNom} + ' ' + ${fc.formateur.formaPrenom}"></td>
+            <td th:text="${fc.classe.classeLib}"></td>
+            <td>
+				<a th:href="@{/formateurClasse/edit/{formaCode}/{classeCode}(formaCode=${fc.formateur.formaCode}, classeCode=${fc.classe.classeCode})}"
+				   class="btn btn-warning btn-sm">Modifier</a>
+
+                <a th:href="@{/formateurClasse/delete(formaCode=${fc.formateur.formaCode},classeCode=${fc.classe.classeCode})}" class="btn btn-danger btn-sm" onclick="return confirm('Confirmer suppression ?')">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

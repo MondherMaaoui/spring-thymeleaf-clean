@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -123,17 +125,57 @@ public class ProviderController {
 	    return "provider/listeProviders2";
 	}
 	
-	@RequestMapping("/ajoutProvider3")
-	public String ajoutProvider3(Model model) {
-		model.addAttribute("provider", new Provider());
-		return "provider/ajoutProvider3";
+	// Affichage du formulaire (GET)
+	@GetMapping("/ajoutProvider3")
+	public String afficherFormulaireAjout(Model model) {
+	    model.addAttribute("provider", new Provider());
+	    return "provider/ajoutProvider3";
+	}
+
+	// Traitement du formulaire (POST)
+	@PostMapping("/ajoutProvider3")
+	public String traiterFormulaireAjout(@ModelAttribute Provider provider, Model model) {
+	    // Ajouter à une liste ou base de données si nécessaire
+		actionAjoutProvider(provider);  // Assure-toi que la liste est déclarée quelque part
+
+	    model.addAttribute("listeProviders", listeProviders);
+	    // return "provider/listeProviders3";  // Affiche la liste mise à jour
+	    return "redirect:/provider/listeProviders3";
 	}
 	
 	@RequestMapping("/listeProviders3")
 	public String listeProviders3(@ModelAttribute Provider provider, Model model) {
-	    actionAjoutProvider(provider); // si besoin
+	    //actionAjoutProvider(provider); // si besoin
 	    model.addAttribute("listeProviders", listeProviders);
 	    return "provider/listeProviders3";
 	}
+	
+	// Modification Provider
+	@GetMapping("/modifier/{index}")
+	public String afficherFormulaireModification(@PathVariable int index, Model model) {
+	    Provider providerAModifier = listeProviders.get(index);
+	    model.addAttribute("provider", providerAModifier);
+	    model.addAttribute("index", index); // pour l'envoyer dans le formulaire
+	    return "provider/modifierProvider"; // formulaire HTML
+	}
+	
+	@PostMapping("/modifier")
+	public String modifierProvider(@ModelAttribute Provider provider, @RequestParam int index) {
+	    listeProviders.set(index, provider); // mise à jour de la liste
+	    return "redirect:/provider/listeProviders3";
+	}
+	
+	// Suppression Provider
+	
+	@GetMapping("/supprimer/{index}")
+	public String supprimerProvider(@PathVariable int index) {
+	    if (index >= 0 && index < listeProviders.size()) {
+	        listeProviders.remove(index);
+	    }
+	    return "redirect:/provider/listeProviders3";
+	}
+
+	
+	
 	
 }

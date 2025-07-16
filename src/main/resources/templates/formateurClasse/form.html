@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title
+		th:text="${formateurClasse.formateur == null} ? 'Ajouter un lien Formateur-Classe' : 'Modifier un lien Formateur-Classe'">
+		FormateurClasse</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container mt-3">
+		<h2
+			th:text="${formateurClasse.formateur == null} ? 'Ajouter un lien Formateur-Classe' : 'Modifier un lien Formateur-Classe'">
+		</h2>
+
+		<form th:action="@{/formateurClasse/save}" th:object="${formateurClasse}" method="post">
+
+
+			<input type="hidden" name="oldFormaCode" th:value="${formateurClasse.formateur?.formaCode}" />
+			<input type="hidden" name="oldClasseCode" th:value="${formateurClasse.classe?.classeCode}" />
+			<!-- Formateur -->
+			<div class="mb-3">
+				<label for="formateurSelect" class="form-label">Formateur</label>
+				<select class="form-select" id="formateurSelect" name="formateur.formaCode" required>
+					<option value="" disabled selected>Choisir un formateur</option>
+					<option th:each="f : ${formateurs}" th:value="${f.formaCode}"
+						th:text="${f.formaNom} + ' ' + ${f.formaPrenom}"
+						th:selected="${formateurClasse.formateur?.formaCode} == ${f.formaCode}">
+					</option>
+				</select>
+			</div>
+
+			<!-- Classe -->
+			<div class="mb-3">
+				<label for="classeSelect" class="form-label">Classe</label>
+				<select class="form-select" id="classeSelect" name="classe.classeCode" required>
+					<option value="" disabled selected>Choisir une classe</option>
+					<option th:each="c : ${classes}" th:value="${c.classeCode}" th:text="${c.classeLib}"
+						th:selected="${formateurClasse.classe?.classeCode} == ${c.classeCode}">
+					</option>
+				</select>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
+			<a href="#" th:href="@{/formateurClasse/list}" class="btn btn-secondary">Annuler</a>
+		</form>
+	</div>
+</body>
+
+</html>

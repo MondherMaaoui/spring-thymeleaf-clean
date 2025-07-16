@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Formateur</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Modifier un Formateur</h2>
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form th:action="@{/formateur/save}" th:object="${formateur}" method="post" class="p-4 bg-white shadow rounded border">
+                
+                <!-- Champ caché pour l'identifiant -->
+                <input type="hidden" th:field="*{formaCode}" />
+
+                <div class="mb-3">
+                    <label for="formaNom" class="form-label">Nom :</label>
+                    <input type="text" th:field="*{formaNom}" class="form-control" id="formaNom" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="formaPrenom" class="form-label">Prénom :</label>
+                    <input type="text" th:field="*{formaPrenom}" class="form-control" id="formaPrenom" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="formaDateNaiss" class="form-label">Date de naissance :</label>
+                    <input type="date" th:field="*{formaDateNaiss}" class="form-control" id="formaDateNaiss" required />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                    <a th:href="@{/formateur/list}" class="btn btn-secondary ms-2">Annuler</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
