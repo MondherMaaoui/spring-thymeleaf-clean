@@ -32,13 +32,14 @@ public class FormateurController {
     @PostMapping("/save")
     public String saveFormateur(@ModelAttribute Formateur formateur) {
         formateurService.saveFormateur(formateur);
-        return "redirect:/formateur/list";
+        return "redirect:list";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteFormateur(@PathVariable("id") int id) {
         formateurService.deleteFormateur(id);
-        return "redirect:/formateur/list";
+        //return "redirect:/formateur/list";
+        return "redirect:../list";  // fonctionne  la roote au niveau id on monte d'un cran
     }
     
  // Affichage du formulaire de modification
@@ -48,9 +49,11 @@ public class FormateurController {
         if (formateur == null) {
             // Gérer l'erreur si le formateur n'existe pas
             return "redirect:/formateur/list";
+        	
         }
         model.addAttribute("formateur", formateur);
-        return "formateur/add"; // même vue utilisée pour ajouter et modifier
+       // return "formateur/add"; // même vue utilisée pour ajouter et modifier
+        return "formateur/edit";
     }
 
 }
